@@ -2,7 +2,7 @@
 
 ## Installation
 ```python
-git clone https://github.com/WandersonGN/pyccmap.git
+git clone https://github.com/Notjack429/pyccmap.git
 pip install -r requirements.txt
 setup.py install
 ```
