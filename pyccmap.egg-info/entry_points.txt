@@ -1,3 +1,0 @@
-[console_scripts]
-pyccmap = pyccmap.__main__:main
-
