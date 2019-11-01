@@ -15,5 +15,5 @@ class BitStamp(API):
             symbol = pair["url_symbol"]
             if symbol.endswith("usd"):
                 coin = symbol.strip("usd").upper()
-                output[coin] = {key: value for key, value in filter(lambda x: x[0] in ("ask", "bid", "last"), self.get(f"/ticker/{symbol}/").json().items())}
+                output[coin] = self.get(f"/ticker/{symbol}/").json()
         return output
