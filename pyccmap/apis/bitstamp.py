@@ -5,7 +5,8 @@ __all__ = ["BitStamp"]
 class BitStamp(API):
     # Set the API URL
     url = "https://www.bitstamp.net/api/v2/"
-    def values(self):
+    def values(self, coins: tuple = ()):
+        coins = map(str.upper, coins)
         output = {}
         response = self.get("trading-pairs-info/")
         if response.status_code is not 200:
@@ -15,5 +16,6 @@ class BitStamp(API):
             symbol = pair["url_symbol"]
             if symbol.endswith("usd"):
                 coin = symbol.strip("usd").upper()
-                output[coin] = self.get(f"/ticker/{symbol}/").json()
+                if not coins or coin in coins:
+                    output[coin] = self.get(f"/ticker/{symbol}/").json()
         return output
