@@ -1,9 +1,9 @@
-from pyccmap.apis import BitStamp, BitRex, Cex
+from pyccmap import apis
 
 __all__ = ["Directory"]
 
 class Directory(object):
-    apis: tuple = (BitStamp, BitRex, Cex)
+    apis: tuple = tuple((getattr(apis, api) for api in apis.__all__))
     def __init__(self):
         for api in self.apis:
             setattr(self, api.__name__.lower(), api())

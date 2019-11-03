@@ -20,12 +20,12 @@ class API(Session):
             # Add a / to the end of 'path' if it doesn't already have it
             path += "/"
         # Set version to None if version's not specified in the path
-        self.version = version.strip("/") or None
+        self.version = version.strip("/") if version else None
         # Set API URL to this version's root path
         self.url = Url(url.scheme, url.auth, url.host, url.port, path)
 
     def __repr__(self):
-        return f"API(version = {self.version}, {', '.join(f'{attr} = {getattr(url, attr)}' for attr in ('scheme', 'auth', 'host', 'port', 'path'))})"
+        return f"API(version = {self.version}, {', '.join(f'{attr} = {getattr(self.url, attr)}' for attr in ('scheme', 'auth', 'host', 'port', 'path'))})"
 
     def __str__(self):
         return str(self.url)
