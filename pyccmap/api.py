@@ -13,9 +13,9 @@ class API(Session):
         # Validate and split URL using urllib3's Url class util
         url = parse_url(self.url)
         # Regular Expression to extract the base/root API path & its version
-        matches = search("(\/api(\/v\d+([\.]\d+|)(\/|$)|\/|$))", url.path).groups()
+        matches = search("(\/(api\/|)v\d+([\.]\d+|)(\/|$)|\/|$)", url.path).groups()
         # Get the API version and root path
-        path, version, *_ = matches
+        path, _, version, *_ = matches
         if not path.endswith("/"):
             # Add a / to the end of 'path' if it doesn't already have it
             path += "/"
