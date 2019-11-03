@@ -10,5 +10,5 @@ class Cex(API):
             try:
                 output[coin] = self.get(f"ticker/{coin}/USD").json()
             except Exception as e:
-                pass
+                raise e
         return output

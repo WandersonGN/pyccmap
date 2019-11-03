@@ -3,7 +3,7 @@ from pyccmap import apis
 __all__ = ["Directory"]
 
 class Directory(object):
-    apis: tuple = tuple((getattr(apis, api) for api in apis.__all__))
+    apis: tuple = tuple(sorted((getattr(apis, api) for api in apis.__all__), key = lambda x: x.__name__))
     def __init__(self):
         for api in self.apis:
             setattr(self, api.__name__.lower(), api())
@@ -15,7 +15,7 @@ class Directory(object):
         for api in self.apis:
             values = getattr(self, api.__name__.lower()).values()
             self.currencies.update(values.keys())
-            self.dict[api.__name__] = values
+            self.dict[api.__name__] = {k: values[k] for k in sorted(values)}
         self.currencies = tuple(sorted(self.currencies))
         return self.dict
 
