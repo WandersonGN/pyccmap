@@ -17,5 +17,5 @@ class BitStamp(API):
             if symbol.endswith("usd"):
                 coin = symbol.strip("usd").upper()
                 if (coin in coins) or (not coins):
-                    output[coin] = self.get(f"/ticker/{symbol}/").json()
+                    output[coin] = {k: float(v) for k, v in self.get(f"/ticker/{symbol}/").json().items()}
         return output

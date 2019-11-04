@@ -8,7 +8,7 @@ class Cex(API):
         output = {}
         for coin in map(str.upper, coins):
             try:
-                output[coin] = self.get(f"ticker/{coin}/USD").json()
+                output[coin] = {k: (float(v) if (isinstance(v, str) and (v.isdecimal() or v.isdigit())) else v) for k, v in self.get(f"ticker/{coin}/USD").json().items()}
             except Exception as e:
                 raise e
         return output

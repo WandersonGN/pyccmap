@@ -8,7 +8,7 @@ class BitRex(API):
         output = {}
         for coin in map(str.upper, coins):
             try:
-                output[coin] = {key.lower(): value for key, value in self.get(f"public/getticker?market=USD-{coin}").json()["result"].items()}
+                output[coin] = {key.lower(): float(value) for key, value in self.get(f"public/getticker?market=USD-{coin}").json()["result"].items()}
             except Exception as e:
                 pass
         return output
